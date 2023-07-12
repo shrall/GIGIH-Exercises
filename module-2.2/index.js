@@ -17,7 +17,7 @@ app.post("/song/add", (req, res) => {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
-  const song = { uuid: uuidv4(), title, artists, url };
+  const song = { uuid: uuidv4(), title, artists, url, isPlaying: false };
   playlist.push(song);
 
   return res.json({ message: "Song added to the playlist", song: song });
@@ -31,7 +31,9 @@ app.get("/song/play/:uuid", (req, res) => {
     return res.status(404).json({ error: "Song not found" });
   }
 
-  return res.json(song);
+  song.isPlaying = !song.isPlaying;
+
+  return res.json({ message: "Song play state updated", song });
 });
 
 app.get("/song/list", (req, res) => {
