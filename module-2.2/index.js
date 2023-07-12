@@ -1,9 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { v4: uuidv4 } = require("uuid");
+const multer = require("multer");
 
 const app = express();
+const upload = multer();
 app.use(bodyParser.json());
+app.use(upload.any());
 
 let playlist = [];
 
